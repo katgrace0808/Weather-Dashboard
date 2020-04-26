@@ -18,83 +18,108 @@
         <div class  = "row">
             <h5>Search by city name:</h5>
             <section class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="City Name" aria-label="City name" aria-describedby="button-addon2">
+                <input type="text" class="form-control" id="search-input" placeholder="City Name" aria-label="City name" aria-describedby="button-addon2">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="button" id="button-addon2">Get Traveling!</button>
                 </div>
             </section>
-
                 <div class="list-group" style="margin-bottom: 20px;">
-                    <a href="#" class="list-group-item list-group-item-action">City 1 name is longer</a>
-                    <a href="#" class="list-group-item list-group-item-action">City 2</a>
-                    <a href="#" class="list-group-item list-group-item-action">City 3</a>
-                    <a href="#" class="list-group-item list-group-item-action">City 4</a>
-                    <a href="#" class="list-group-item list-group-item-action">City 5</a>
-                    <a href="#" class="list-group-item list-group-item-action">City 6</a>
-                    <a href="#" class="list-group-item list-group-item-action">City 7</a>
-                    <a href="#" class="list-group-item list-group-item-action">City 8</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 1 name is longer</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 4</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 5</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 6</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 7</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 8</a>
+                </div>
+                <div class="card w-75" style="margin-left: 20px; margin-bottom: 20px;">
+                  <div class="card-body">
+                    <h5 class="card-title" id="current-city">City Name (Current Date)</h5><p class="card-text" id="current-icon"></p>
+                    <p class="card-text" id="current-temp">Tempurature:</p>
+                    <p class="card-text" id="current-humidity">Humidity:</p>
+                    <p class="card-text" id="current-wind-speed">Wind Speed:</p>
+                    <p class="card-text">UV Index:<span class="badge badge-success" id="current-UV-index">1.25</span></p>
                   </div>
-                  <div class="card w-75" style="margin-left: 20px; margin-bottom: 20px;">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                  </div>            
+                </div>            
                   <div class="card-deck w-100">
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title">Date</h5>
-                        <p class="card-text">temp</p>
-                        <p class="card-text">humidity</p>
+                        <h5 class="card-title" id="day-1-date">Date</h5>
+                        <p class="card-text" id="day-1-temp">Temp:</p>
+                        <p class="card-text" id="day-1-humidity">Humidity:</p>
                       </div>
                     </div>
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title">Date</h5>
-                        <p class="card-text">temp</p>
-                        <p class="card-text">humidity</p>
+                        <h5 class="card-title" id="day-2-date">Date</h5>
+                        <p class="card-text" id="day-2-temp">Temp:</p>
+                        <p class="card-text" id="day-2-humidity">Humidity:</p>
                       </div>
                     </div>
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title">Date</h5>
-                        <p class="card-text">temp</p>
-                        <p class="card-text">humidity</p>
+                        <h5 class="card-title" id="day-3-date">Date</h5>
+                        <p class="card-text" id="day-3-temp">Temp:</p>
+                        <p class="card-text" id="day-3-humidity">Humidity:</p>
                       </div>
                     </div>
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title">Date</h5>
-                        <p class="card-text">temp</p>
-                        <p class="card-text">humidity</p>
+                        <h5 class="card-title" id="day-4-date">Date</h5>
+                        <p class="card-text" id="day-4-temp">Temp:</p>
+                        <p class="card-text" id="day-4-humidity">Humidity:</p>
                       </div>
                     </div>
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title">Date</h5>
-                        <p class="card-text">temp</p>
-                        <p class="card-text">humidity</p>
+                        <h5 class="card-title" id="day-5-date">Date</h5>
+                        <p class="card-text" id="day-5-temp">Temp:</p>
+                        <p class="card-text" id="day-5-humidity">Humidity:</p>
                       </div>
                     </div>
-    
                   </div>            
                 </section>
         
     </div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <script>
+    <script type="text/javascript">
 
 
-    let cityName = ";"
-    let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=5c763a3a8c90ccff6e1863570ef2db64";
 
-    // $.ajax({
-    //     url: queryURL;
-    //     method: "GET"
-    // }).then(function(response) {
+    $("#button-addon2").on("click", function() {
+        let cityName = $("#search-input").val();
+        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=5c763a3a8c90ccff6e1863570ef2db64";
+        let lat = response.coord.lat;
+        let lon = response.coord.lon;
+        let uvIndexURL = "http://api.openweathermap.org/data/2.5/uvi?appid=5c763a3a8c90ccff6e1863570ef2db64&lat=" + {lat} + "&lon=" + {lon};
 
-    // })
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+        // console.log(response)
+        $("#current-city").text(response.name);
+        $("#current-icon").text(response.weather[0].icon)
+        $("#current-temp").text(response.main.temp);
+        $("#current-humidity").text(response.main.humidity);
+        $("#current-wind-speed").text(response.wind.speed);
+        $("#button-addon2").on("click", function() {
+
+
+    $.ajax({
+        url: uvIndexURL,
+        method: "GET"
+    }).then(function(response) {
+
+        console.log(response)
+    })
+
+    })
+})
+})
 
     </script>
 </body>

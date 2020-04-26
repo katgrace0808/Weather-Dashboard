@@ -2,17 +2,25 @@ Create dynamic HTML
     *container (<main>)
         *First section
             *search box (<form>)
-            *list of common cities (<ul>)
+            *list of search history  (<ul>)
         *Second section
             *Name of called city (<header>)
+                *saved to local storage
             *list (<ul>)
                 *Temperature
                 *Humidity
                 *Wind speed
                 *UV index
+                    *For UV index, need to color response based on 
+                        *favorable: 0-2
+                        *moderate: 3-7
+                        *severe: 8+
+                        *if/else statement
         *Third section
             *Five-day forecast
                 *Block container for each day
+                *Add images based on response.weather.main
+                    *Drizzle = raindrops small
 
 Create queryURL with search based on city
     *API: 5c763a3a8c90ccff6e1863570ef2db64
@@ -29,4 +37,11 @@ For list of cities around Seattle
             *lang - use servier clustering of points (yes/no)
             *cnt - number of cities aroung that point to be returned
 
+
 JSON callback example: https://samples.openweathermap.org/data/2.5/weather?q=London,uk&callback=test&appid=439d4b804bc8187953eb36d2a8c26a02
+
+
+
+Add images based on response.weather.main
+    *Drizzle = raindrops small
+
