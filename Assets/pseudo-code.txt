@@ -1,0 +1,32 @@
+Create dynamic HTML
+    *container (<main>)
+        *First section
+            *search box (<form>)
+            *list of common cities (<ul>)
+        *Second section
+            *Name of called city (<header>)
+            *list (<ul>)
+                *Temperature
+                *Humidity
+                *Wind speed
+                *UV index
+        *Third section
+            *Five-day forecast
+                *Block container for each day
+
+Create queryURL with search based on city
+    *API: 5c763a3a8c90ccff6e1863570ef2db64
+    *URL: https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={your api key}
+    *URL for zip: https://api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
+        *in USA, country code does not need to be specified
+    
+For list of cities around Seattle
+    *Sample call: http://api.openweathermap.org/data/2.5/find?lat=55.5&lon=37.5&cnt=10
+        *parameters
+            *lat
+            *lon
+            *callback - functionName for JSONP callback
+            *lang - use servier clustering of points (yes/no)
+            *cnt - number of cities aroung that point to be returned
+
+JSON callback example: https://samples.openweathermap.org/data/2.5/weather?q=London,uk&callback=test&appid=439d4b804bc8187953eb36d2a8c26a02
