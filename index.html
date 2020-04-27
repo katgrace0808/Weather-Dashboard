@@ -23,28 +23,28 @@
                   <button class="btn btn-outline-secondary" type="button" id="button-addon2">Get Traveling!</button>
                 </div>
             </section>
-                <div class="list-group" style="margin-bottom: 20px;">
-                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 1 name is longer</a>
-                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 2</a>
-                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 3</a>
-                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 4</a>
-                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 5</a>
-                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 6</a>
-                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 7</a>
-                    <a href="#" class="list-group-item list-group-item-action" id="archive-city">City 8</a>
+                <div class="list-group w-35" style="margin-bottom: 20px;">
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city1" type="button">City 1</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city2" type="button">City 2</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city3" type="button">City 3</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city4" type="button">City 4</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city5" type="button">City 5</a>
+                    <a href="#" class="list-group-item list-group-item-action" id="archive-city6" type="button">City 6</a>
                 </div>
                 <div class="card w-75" style="margin-left: 20px; margin-bottom: 20px;">
                   <div class="card-body">
-                    <h5 class="card-title" id="current-city">City Name (Current Date)</h5><p class="card-text" id="current-icon"></p>
-                    <p class="card-text" id="current-temp">Tempurature:</p>
-                    <p class="card-text" id="current-humidity">Humidity:</p>
-                    <p class="card-text" id="current-wind-speed">Wind Speed:</p>
-                    <p class="card-text">UV Index:<span class="badge badge-success" id="current-UV-index">1.25</span></p>
+                      <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
+                    <h3 class="card-title" id="current-city" style= "padding-bottom: 50px;">City Name (Current Date)</h3>
+                    <p class="card-text" id="current-temp">Tempurature: </p>
+                    <p class="card-text" id="current-humidity">Humidity: </p>
+                    <p class="card-text" id="current-wind-speed">Wind Speed: </p>
+                    <p class="card-text">UV Index: <span class="badge badge-success" id="current-UV-index" style="font-size: 16px;"></span></p>
                   </div>
                 </div>            
                   <div class="card-deck w-100">
                     <div class="card">
                       <div class="card-body">
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-1-date">Date</h5>
                         <p class="card-text" id="day-1-temp">Temp:</p>
                         <p class="card-text" id="day-1-humidity">Humidity:</p>
@@ -52,6 +52,7 @@
                     </div>
                     <div class="card">
                       <div class="card-body">
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-2-date">Date</h5>
                         <p class="card-text" id="day-2-temp">Temp:</p>
                         <p class="card-text" id="day-2-humidity">Humidity:</p>
@@ -59,6 +60,7 @@
                     </div>
                     <div class="card">
                       <div class="card-body">
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-3-date">Date</h5>
                         <p class="card-text" id="day-3-temp">Temp:</p>
                         <p class="card-text" id="day-3-humidity">Humidity:</p>
@@ -66,6 +68,7 @@
                     </div>
                     <div class="card">
                       <div class="card-body">
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-4-date">Date</h5>
                         <p class="card-text" id="day-4-temp">Temp:</p>
                         <p class="card-text" id="day-4-humidity">Humidity:</p>
@@ -73,6 +76,7 @@
                     </div>
                     <div class="card">
                       <div class="card-body">
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-5-date">Date</h5>
                         <p class="card-text" id="day-5-temp">Temp:</p>
                         <p class="card-text" id="day-5-humidity">Humidity:</p>
@@ -84,42 +88,114 @@
     </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript">
 
+function weatherDashboard() {
+    $(document).ready(function() {
 
-
-    $("#button-addon2").on("click", function() {
         let cityName = $("#search-input").val();
-        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=5c763a3a8c90ccff6e1863570ef2db64";
-        let lat = response.coord.lat;
-        let lon = response.coord.lon;
-        let uvIndexURL = "http://api.openweathermap.org/data/2.5/uvi?appid=5c763a3a8c90ccff6e1863570ef2db64&lat=" + {lat} + "&lon=" + {lon};
+        let storedCity = "";
+        let storedQueryURL = "";
+        let storedUVIndexURL = "";
+        $("#archive-city1").text(localStorage.getItem("storedCity"));
+
+    $("#button-addon2").on("click", function(event) {
+
+        let currentDate = moment().format('l');
+        let cityName = $("#search-input").val();
+        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=5c763a3a8c90ccff6e1863570ef2db64";
+        let fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=5c763a3a8c90ccff6e1863570ef2db64";
+        localStorage.setItem("storedCity", cityName);
+        // localStorage.setItem("storedQueryURL", queryURL);
+
+        // console.log(cityName);
+        // console.log(queryURL);
 
     $.ajax({
         url: queryURL,
-        method: "GET"
+        method: "GET",
+        dataType: "JSONP"
     }).then(function(response) {
-        // console.log(response)
-        $("#current-city").text(response.name);
-        $("#current-icon").text(response.weather[0].icon)
-        $("#current-temp").text(response.main.temp);
-        $("#current-humidity").text(response.main.humidity);
-        $("#current-wind-speed").text(response.wind.speed);
-        $("#button-addon2").on("click", function() {
+        console.log(response)
+        let icon = response.weather[0].icon;
+        let condCode = $("#weather-condition");
+        if (icon === "01d") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/01d@2x.png") 
+        } else if (icon === "01n") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/01n@2x.png") 
+        } else if (icon === "02d") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/02d@2x.png") 
+        } else if (icon === "02n") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/02n@2x.png") 
+        } else if (icon === "03d") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/03d@2x.png") 
+        } else if (icon === "03n") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/03n@2x.png") 
+        } else if (icon === "04d") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/04d@2x.png") 
+        } else if (icon === "04n") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/04n@2x.png") 
+        } else if (icon === "09d") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/09d@2x.png") 
+        } else if (icon === "10d") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/10d@2x.png") 
+        } else if (icon === "10n") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/10n@2x.png") 
+        } else if (icon === "11d") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/11d@2x.png") 
+        } else if (icon === "11n") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/11n@2x.png") 
+        } else if (icon === "13d") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/13d@2x.png") 
+        } else if (icon === "50d") {
+            condCode.attr("src", "http://openweathermap.org/img/wn/50d@2x.png") 
+        } 
+        $("#current-city").text(response.name + "  (" + currentDate + ")");
+        $("#current-temp").text("Tempurature: " + response.main.temp + "° F");
+        $("#current-humidity").text("Humidity: " + response.main.humidity + "%");
+        $("#current-wind-speed").text("Wind speed: " + response.wind.speed);
+        let lat = response.coord.lat;
+        let lon = response.coord.lon;
+        let uvIndexURL = "http://api.openweathermap.org/data/2.5/uvi?appid=5c763a3a8c90ccff6e1863570ef2db64&lat=" + lat + "&lon=" + lon;
 
+        // localStorage.setItem("storedUVIndexURL", uvIndexURL);
+        // console.log(uvIndexURL);
 
     $.ajax({
         url: uvIndexURL,
         method: "GET"
-    }).then(function(response) {
-
-        console.log(response)
+    }).then(function(responseUV) {
+        $("#current-UV-index").text(responseUV.value);
+        if (responseUV.value >= 0 && responseUV.value < 3) {
+            $("#current-UV-index").addClass("badge-success");
+        } else if (responseUV.value >= 3 && responseUV.value < 8) {
+            $("#current-UV-index").addClass("badge-warning");
+        } else if (responseUV.value >= 8) {
+            $("#current-UV-index").addClass("badge-danger");
+        }
     })
 
+
+
+    })
+
+    
     })
 })
-})
+}
+weatherDashboard();
+// Attempted the function below so the if/else statement wouldn't be so lengthy.  Encountered and issue with error "Cookies default to SameSite=LAX".
+// function weatherIcon() {
+//     let icon = response.weather[0].icon;
+//     let iconArr = ["01d", "01n", "02d", "02n", "03d", "03n", "04d", "04n", "09d", "09n", "10d", "10n", "11d", "11n", "13d", "13n", "50d", "50n"];
+//     for (let i = 0; i < iconArr.length; i++) {
+//         if (icon === iconArr[i]) {
+//             $("#weather-condition").attr("src", "http://openweathermap.org/img/wn/" + i + "@2x.png") 
+//          }
+//     }
+// }
+
 
     </script>
 </body>

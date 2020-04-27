@@ -42,6 +42,8 @@ JSON callback example: https://samples.openweathermap.org/data/2.5/weather?q=Lon
 
 
 
-Add images based on response.weather.main
-    *Drizzle = raindrops small
+Examples of API calls:
+JSON api.openweathermap.org/data/2.5/weather?q=London
+
+api.openweathermap.org/data/2.5/forecast/daily?q=Seattle&cnt=5&units=imperial&appid=5c763a3a8c90ccff6e1863570ef2db64
 
