@@ -33,51 +33,51 @@
                 </div>
                 <div class="card w-75" style="margin-left: 20px; margin-bottom: 20px;">
                   <div class="card-body">
-                      <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
-                    <h3 class="card-title" id="current-city" style= "padding-bottom: 50px;">City Name (Current Date)</h3>
+                    <h3 class="card-title" id="current-city">City Name (Current Date)</h3>
+                    <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons">
                     <p class="card-text" id="current-temp">Tempurature: </p>
                     <p class="card-text" id="current-humidity">Humidity: </p>
                     <p class="card-text" id="current-wind-speed">Wind Speed: </p>
                     <p class="card-text">UV Index: <span class="badge badge-success" id="current-UV-index" style="font-size: 16px;"></span></p>
                   </div>
                 </div>            
-                  <div class="card-deck w-100">
+                  <div class="card-deck w-100" style="margin-bottom: 50px;">
                     <div class="card">
                       <div class="card-body">
-                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-1-date">Date</h5>
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-1-condition" alt="Weather condition icons">
                         <p class="card-text" id="day-1-temp">Temp:</p>
                         <p class="card-text" id="day-1-humidity">Humidity:</p>
                       </div>
                     </div>
                     <div class="card">
                       <div class="card-body">
-                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-2-date">Date</h5>
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-2-condition" alt="Weather condition icons">
                         <p class="card-text" id="day-2-temp">Temp:</p>
                         <p class="card-text" id="day-2-humidity">Humidity:</p>
                       </div>
                     </div>
                     <div class="card">
                       <div class="card-body">
-                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-3-date">Date</h5>
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-3-condition" alt="Weather condition icons">
                         <p class="card-text" id="day-3-temp">Temp:</p>
                         <p class="card-text" id="day-3-humidity">Humidity:</p>
                       </div>
                     </div>
                     <div class="card">
                       <div class="card-body">
-                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-4-date">Date</h5>
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-4-condition" alt="Weather condition icons">
                         <p class="card-text" id="day-4-temp">Temp:</p>
                         <p class="card-text" id="day-4-humidity">Humidity:</p>
                       </div>
                     </div>
                     <div class="card">
                       <div class="card-body">
-                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons" style= "float: right;">
                         <h5 class="card-title" id="day-5-date">Date</h5>
+                        <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-5-condition" alt="Weather condition icons">
                         <p class="card-text" id="day-5-temp">Temp:</p>
                         <p class="card-text" id="day-5-humidity">Humidity:</p>
                       </div>
@@ -105,12 +105,7 @@ function weatherDashboard() {
         let currentDate = moment().format('l');
         let cityName = $("#search-input").val();
         let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=5c763a3a8c90ccff6e1863570ef2db64";
-        let fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=5c763a3a8c90ccff6e1863570ef2db64";
         localStorage.setItem("storedCity", cityName);
-        // localStorage.setItem("storedQueryURL", queryURL);
-
-        // console.log(cityName);
-        // console.log(queryURL);
 
     $.ajax({
         url: queryURL,
@@ -152,7 +147,7 @@ function weatherDashboard() {
             condCode.attr("src", "http://openweathermap.org/img/wn/50d@2x.png") 
         } 
         $("#current-city").text(response.name + "  (" + currentDate + ")");
-        $("#current-temp").text("Tempurature: " + response.main.temp + "° F");
+        $("#current-temp").text("Temperature: " + response.main.temp + "° F");
         $("#current-humidity").text("Humidity: " + response.main.humidity + "%");
         $("#current-wind-speed").text("Wind speed: " + response.wind.speed);
         let lat = response.coord.lat;
@@ -164,7 +159,7 @@ function weatherDashboard() {
 
     $.ajax({
         url: uvIndexURL,
-        method: "GET"
+        method: "GET",
     }).then(function(responseUV) {
         $("#current-UV-index").text(responseUV.value);
         if (responseUV.value >= 0 && responseUV.value < 3) {
@@ -175,8 +170,228 @@ function weatherDashboard() {
             $("#current-UV-index").addClass("badge-danger");
         }
     })
+    let fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=imperial&appid=5c763a3a8c90ccff6e1863570ef2db64";
+
+    $.ajax({
+        url: fiveDayURL,
+        method: "GET",
+    }).then(function(responseFiveDay) {
+        let dayOne = moment().add(1, 'd').format("MM/DD/YYYY"); 
+        let dayTwo = moment().add(2, 'days').format("MM/DD/YYYY"); 
+        let dayThree = moment().add(3, 'days').format("MM/DD/YYYY"); 
+        let dayFour = moment().add(4, 'days').format("MM/DD/YYYY"); 
+        let dayFive = moment().add(5, 'days').format("MM/DD/YYYY"); 
+        $("#day-1-date").text(dayOne);
+        $("#day-2-date").text(dayTwo);
+        $("#day-3-date").text(dayThree);
+        $("#day-4-date").text(dayFour);
+        $("#day-5-date").text(dayFive);
+        console.log(responseFiveDay);
+        console.log(responseFiveDay.list[2].weather[0].icon)
+        weatherIconOne();
+        weatherIconTwo();
+        weatherIconThree();
+        weatherIconFour();
+        weatherIconFive();
+
+        // for (let j = 0; j <= 5; j++) {
+        //     let j;
+        //     let icon = responseFiveDay.list[j].weather[0].icon;
+        //     let iconArr = ["01d", "01n", "02d", "02n", "03d", "03n", "04d", "04n", "09d", "09n", "10d", "10n", "11d", "11n", "13d", "13n", "50d", "50n"];
+        //     if (icon === iconArr[j]) {
+        //         $("weather-" + j + "-condition").attr("src", "http://openweathermap.org/img/wn/" + j + "@2x.png") 
+        //     }
+        // }
+
+        for (let i = 0; i <= 5; i++) {
+            $("#day-" + i + "-temp").text("Temperature: " + responseFiveDay.list[i].main.temp + "° F");
+            $("#day-" + i + "-humidity").text("Humidity: " + responseFiveDay.list[i].main.humidity + "%");
+        }
+        console.log(responseFiveDay);
 
 
+
+
+
+
+
+        function weatherIconOne() {
+            let icon = responseFiveDay.list[3].weather[0].icon;
+            let condCode = $("#weather-1-condition");
+            if (icon === "01d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01d@2x.png") 
+            } else if (icon === "01n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01n@2x.png") 
+            } else if (icon === "02d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02d@2x.png") 
+             } else if (icon === "02n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02n@2x.png") 
+            } else if (icon === "03d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03d@2x.png") 
+            } else if (icon === "03n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03n@2x.png") 
+            } else if (icon === "04d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04d@2x.png") 
+            } else if (icon === "04n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04n@2x.png") 
+            } else if (icon === "09d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/09d@2x.png") 
+            } else if (icon === "10d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10d@2x.png") 
+            } else if (icon === "10n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10n@2x.png") 
+            } else if (icon === "11d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11d@2x.png") 
+            } else if (icon === "11n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11n@2x.png") 
+            } else if (icon === "13d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/13d@2x.png") 
+            } else if (icon === "50d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/50d@2x.png") 
+            } 
+        }
+        function weatherIconTwo() {
+            let icon = responseFiveDay.list[11].weather[0].icon;
+            let condCode = $("#weather-2-condition");
+            if (icon === "01d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01d@2x.png") 
+            } else if (icon === "01n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01n@2x.png") 
+            } else if (icon === "02d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02d@2x.png") 
+            } else if (icon === "02n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02n@2x.png") 
+            } else if (icon === "03d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03d@2x.png") 
+            } else if (icon === "03n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03n@2x.png") 
+            } else if (icon === "04d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04d@2x.png") 
+            } else if (icon === "04n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04n@2x.png") 
+            } else if (icon === "09d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/09d@2x.png") 
+            } else if (icon === "10d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10d@2x.png") 
+            } else if (icon === "10n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10n@2x.png") 
+            } else if (icon === "11d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11d@2x.png") 
+            } else if (icon === "11n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11n@2x.png") 
+            } else if (icon === "13d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/13d@2x.png") 
+            } else if (icon === "50d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/50d@2x.png") 
+            } 
+        }
+        function weatherIconThree() {
+            let icon = responseFiveDay.list[19].weather[0].icon;
+            let condCode = $("#weather-3-condition");
+            if (icon === "01d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01d@2x.png") 
+            } else if (icon === "01n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01n@2x.png") 
+            } else if (icon === "02d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02d@2x.png") 
+            } else if (icon === "02n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02n@2x.png") 
+            } else if (icon === "03d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03d@2x.png") 
+            } else if (icon === "03n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03n@2x.png") 
+            } else if (icon === "04d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04d@2x.png") 
+            } else if (icon === "04n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04n@2x.png") 
+            } else if (icon === "09d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/09d@2x.png") 
+            } else if (icon === "10d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10d@2x.png") 
+            } else if (icon === "10n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10n@2x.png") 
+            } else if (icon === "11d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11d@2x.png") 
+            } else if (icon === "11n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11n@2x.png") 
+            } else if (icon === "13d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/13d@2x.png") 
+            } else if (icon === "50d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/50d@2x.png") 
+            } 
+        }
+        function weatherIconFour() {
+            let icon = responseFiveDay.list[27].weather[0].icon;
+            let condCode = $("#weather-4-condition");
+            if (icon === "01d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01d@2x.png") 
+            } else if (icon === "01n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01n@2x.png") 
+            } else if (icon === "02d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02d@2x.png") 
+            } else if (icon === "02n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02n@2x.png") 
+            } else if (icon === "03d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03d@2x.png") 
+            } else if (icon === "03n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03n@2x.png") 
+            } else if (icon === "04d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04d@2x.png") 
+            } else if (icon === "04n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04n@2x.png") 
+            } else if (icon === "09d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/09d@2x.png") 
+            } else if (icon === "10d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10d@2x.png") 
+            } else if (icon === "10n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10n@2x.png") 
+            } else if (icon === "11d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11d@2x.png") 
+            } else if (icon === "11n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11n@2x.png") 
+            } else if (icon === "13d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/13d@2x.png") 
+            } else if (icon === "50d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/50d@2x.png") 
+            } 
+        }
+        function weatherIconFive() {
+            let icon = responseFiveDay.list[35].weather[0].icon;
+            let condCode = $("#weather-5-condition");
+            if (icon === "01d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01d@2x.png") 
+            } else if (icon === "01n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/01n@2x.png") 
+            } else if (icon === "02d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02d@2x.png") 
+            } else if (icon === "02n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/02n@2x.png") 
+            } else if (icon === "03d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03d@2x.png") 
+            } else if (icon === "03n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/03n@2x.png") 
+            } else if (icon === "04d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04d@2x.png") 
+            } else if (icon === "04n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/04n@2x.png") 
+            } else if (icon === "09d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/09d@2x.png") 
+            } else if (icon === "10d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10d@2x.png") 
+            } else if (icon === "10n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/10n@2x.png") 
+            } else if (icon === "11d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11d@2x.png") 
+            } else if (icon === "11n") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/11n@2x.png") 
+            } else if (icon === "13d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/13d@2x.png") 
+            } else if (icon === "50d") {
+                condCode.attr("src", "http://openweathermap.org/img/wn/50d@2x.png") 
+            } 
+        }
+
+    })
 
     })
 
