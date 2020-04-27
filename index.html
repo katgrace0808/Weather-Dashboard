@@ -93,24 +93,37 @@
 
 function weatherDashboard() {
     $(document).ready(function() {
-
+        let cityInput = [];
         let cityName = $("#search-input").val();
-        let storedCity = "";
         let storedQueryURL = "";
         let storedUVIndexURL = "";
-        $("#archive-city1").text(localStorage.getItem("storedCity"));
+        
+            let storedCity = JSON.parse(localStorage.getItem("storedCity"));
+            // cityInput.push(JSON.parse(localStorage.getItem("storedCity")));
+            if (storedCity !== "") {
+            $("#archive-city1").text(storedCity[0]);
+            $("#archive-city2").text(storedCity[1]);
+            $("#archive-city3").text(storedCity[2]);
+            $("#archive-city4").text(storedCity[3]);
+            $("#archive-city5").text(storedCity[4]);
+            $("#archive-city6").text(storedCity[5]);
+            } else {
+                return;
+            }
+            // $("#archive-city").text(localStorage.getItem("storedCity"));            
 
     $("#button-addon2").on("click", function(event) {
-
+        event.preventDefault();
         let currentDate = moment().format('l');
         let cityName = $("#search-input").val();
         let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=5c763a3a8c90ccff6e1863570ef2db64";
-        localStorage.setItem("storedCity", cityName);
-
+        cityInput.push(cityName);
+        localStorage.setItem("storedCity", JSON.stringify(cityInput));
+        console.log(cityInput);
     $.ajax({
         url: queryURL,
         method: "GET",
-        dataType: "JSONP"
+        // dataType: "JSONP"
     }).then(function(response) {
         console.log(response)
         let icon = response.weather[0].icon;
@@ -186,8 +199,8 @@ function weatherDashboard() {
         $("#day-3-date").text(dayThree);
         $("#day-4-date").text(dayFour);
         $("#day-5-date").text(dayFive);
-        console.log(responseFiveDay);
-        console.log(responseFiveDay.list[2].weather[0].icon)
+        // console.log(responseFiveDay);
+        // console.log(responseFiveDay.list[2].weather[0].icon)
         weatherIconOne();
         weatherIconTwo();
         weatherIconThree();
@@ -207,13 +220,7 @@ function weatherDashboard() {
             $("#day-" + i + "-temp").text("Temperature: " + responseFiveDay.list[i].main.temp + "° F");
             $("#day-" + i + "-humidity").text("Humidity: " + responseFiveDay.list[i].main.humidity + "%");
         }
-        console.log(responseFiveDay);
-
-
-
-
-
-
+        // console.log(responseFiveDay);
 
         function weatherIconOne() {
             let icon = responseFiveDay.list[3].weather[0].icon;
