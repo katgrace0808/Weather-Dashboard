@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Weather Dashboard</h1>
+          <p class="lead">Search for your next vacation destination city to learn about the local weather, and be prepared for any weather conditions.</p>
+          <h4>Happy Travels!</h4>
+        </div>
+      </div>
+      <div class="container" id="search-container">
+        <div class  = "row">
+            <h5>Search by city name:</h5>
+            <section class="input-group mb-3">
+                <input type="text" class="form-control" id="search-input" placeholder="City Name" aria-label="City name" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Get Traveling!</button>
+                </div>
+            </section>
+            <div class="row">
+                <ul id="city-list"></ul>
+                <div id="main-card"></div>
+            </div>      
+
+                <!-- <div class="card w-75" id="main-card" style="margin-left: 20px; margin-bottom: 20px;">
+                  <div class="card-body">
+                    <h3 class="card-title" id="current-city">City Name (Current Date)</h3>
+                    <img src="http://openweathermap.org/img/wn/10d@2x.png" id="weather-condition" alt="Weather condition icons">
+                    <p class="card-text" id="current-temp">Tempurature: </p>
+                    <p class="card-text" id="current-humidity">Humidity: </p>
+                    <p class="card-text" id="current-wind-speed">Wind Speed: </p>
+                    <p class="card-text">UV Index: <span class="badge badge-success" id="current-UV-index" style="font-size: 16px;"></span></p>
+                  </div>
+                </div>   -->
+            </div>      
+            <div class= "row" id="five-day"></div>
+      </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript">
+
+let displayDiv = $("<div class='card w-75' style='margin-left: 200px; margin-bottom: 20px;'>")
+let displayEl = $("<div class='card-body'>");
+let displayCity = $("<h3 class='card-title'>").attr("id", "current-city");
+let displayImg = $("<img>")
+let displayTemp = $("<p class='card-text'>").attr("id", "current-temp");
+let displayHum = $("<p class='card-text'>").attr("id", "current-humidity");
+let displayWind = $("<p class='card-text'>").attr("id", "current-wind-speed");
+let displayUv = $("<p class='card-text'>");
+let spanDiv = $("<span class='badge badge-success' id='current-UV-index' style='font-size: 16px;''>");
+
+function weatherDashboard() {
+    $(document).ready(function() {
+        let currentDate = moment().format('l');
+
+        $("#button-addon2").on("click", function(event) {
+            event.preventDefault();
+            $("#search-input").empty();
+            let cityName = $("#search-input").val();
+            let cityInput = $(this).attr("data-name");
+            let cityList = [];
+            cityList.push(cityName);
+            console.log(cityList);
+            cityListBtn();
+            let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=5c763a3a8c90ccff6e1863570ef2db64";
+            $("#main-card").append(displayDiv);
+            displayDiv.append(displayEl);
+            displayEl.append(displayCity);
+            displayEl.append(displayImg);
+            displayEl.append(displayTemp);
+            displayEl.append(displayHum);
+            displayEl.append(displayWind);
+            displayDiv.append(spanDiv.wrap(displayUv));
+
+            for (let j = 0; j < cityList.length; j++) {
+                const element = cityList[j];
+                console.log(cityList);
+                let storedList = $("<button>");
+                storedList.addClass("list-btn");
+                storedList.attr("data-name", cityName[i])
+                storedList.text(cityList[i]);
+                $("#city-list").append(storedList);
+                }
+
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(respInitial) {
+                let response = respInitial;
+                searchCard(response);
+                iconF(response);
+                console.log(response);
+                let lat = response.coord.lat;
+                let lon = response.coord.lon;
+                let uvIndexURL = "http://api.openweathermap.org/data/2.5/uvi?appid=5c763a3a8c90ccff6e1863570ef2db64&lat=" + lat + "&lon=" + lon;
+                $.ajax({
+                    url: uvIndexURL,
+                    method: "GET",
+                }).then(function(responseUV) {
+                    $("#current-UV-index").text("UV Index: " + responseUV.value);
+                    if (responseUV.value >= 0 && responseUV.value < 3) {
+                        $("#current-UV-index").addClass("badge-success");
+                    } else if (responseUV.value >= 3 && responseUV.value < 8) {
+                        $("#current-UV-index").addClass("badge-warning");
+                    } else if (responseUV.value >= 8) {
+                        $("#current-UV-index").addClass("badge-danger");
+                    }
+
+                // let fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=imperial&appid=5c763a3a8c90ccff6e1863570ef2db64";
+                let fiveDayURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=current,hourly&appid=5c763a3a8c90ccff6e1863570ef2db64";
+                    $.ajax({
+                        url: fiveDayURL,
+                        method: "GET"
+                    }).then(function(responseFiveDay) {
+                        console.log(responseFiveDay);
+                        let data = responseFiveDay.daily;
+                        // $("#five-day").empty();
+                        for (let i = 1; i < 6; i++) {
+                            let fiveDayDiv = $("<div class='card bg-info' style='width: 10rem; margin: 10px;'>");
+                            let fiveDayDate = responseFiveDay.daily[i].dt;
+                            let date = fiveDayDate;
+                            let fiveDayTemp = responseFiveDay.daily[i].temp.day;
+                            let fiveDayHum = responseFiveDay.daily[i].humidity;
+                            let fiveDayEl = $("<div class='card-body'>");
+                            let fiveDayDateEl = $("<h5 class='card-title'>");
+                            let fiveDayTempEl = $("<p class='card-text'>").text("Temp: " + fiveDayTemp + "° F");
+                            let fiveDayHumEl = $("<p class='card-text'>").text("Humidity: " + fiveDayHum + "%");
+                            let fiveDayIcon = "http://openweathermap.org/img/wn/" + responseFiveDay.daily[i].weather[0].icon + "@2x.png"
+                            let fiveDayImg = $("<img>");
+                            fiveDayImg.attr("src", fiveDayIcon);
+                            fiveDayEl.append(fiveDayDateEl).text("Date: " + moment.unix(fiveDayDate).format("MM/DD/YYYY"));
+                            fiveDayEl.append(fiveDayImg);
+                            fiveDayEl.append(fiveDayTempEl);
+                            fiveDayEl.append(fiveDayHumEl);
+                            fiveDayDiv.append(fiveDayEl);
+                            $("#five-day").append(fiveDayDiv);
+                        }
+                    });
+            });
+        });
+    })
+        
+        function searchCard(response) {
+
+            displayCity.text(response.name + "  (" + currentDate + ")");
+            displayTemp.text("Temperature: " + response.main.temp + "° F");
+            displayHum.text("Humidity: " + response.main.humidity + "%");
+            displayWind.text("Wind speed: " + response.wind.speed);
+        }
+
+        function iconF(response) {
+            let iconArr = ["01d", "01n", "02d", "02n", "03d", "03n", "04d", "04n", "09d", "09n", "10d", "10n", "11d", "11n", "13d", "13n", "50d", "50n"];
+            let icon = response.weather[0].icon;
+            let condCode = displayImg.attr({"id": "weather-condition", "alt": "Weather condition icons"});
+            for (let i = 0; i < iconArr.length; i++) {
+                let element = iconArr[i];
+                if (icon === element) {
+                    condCode.attr("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+                    console.log("http://openweathermap.org/img/wn/" + icon + "@2x.png");
+                }
+            }
+        }
+        
+        function cityListBtn() {
+            let cityList = [];
+
+            for (let j = 0; j < cityList.length; j++) {
+
+                const element = cityList[j];
+                console.log(cityList);
+                let storedList = $("<button>");
+                storedList.addClass("list-btn");
+                storedList.attr("data-name", cityName[i])
+                storedList.text(cityList[i]);
+                $("#city-list").append(storedList);
+            }
+        }
+
+    })
+    $(document).on("click", ".list-btn", weatherDashboard);
+
+    
+
+}
+weatherDashboard();
+
+    </script>
+</body>
+</html>
