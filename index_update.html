@@ -58,16 +58,23 @@ let spanDiv = $("<span class='badge badge-success' id='current-UV-index' style='
 function weatherDashboard() {
     $(document).ready(function() {
         let currentDate = moment().format('l');
+        cityLoad();
 
         $("#button-addon2").on("click", function(event) {
             event.preventDefault();
             $("#search-input").empty();
-            let cityName = $("#search-input").val();
-            let cityInput = $(this).attr("data-name");
+            let cityName = $("#search-input").val().trim();;
+            let cityContent = $(this).siblings("input").val();
             let cityList = [];
+            let storedList = $("<button>");
+            storedList.addClass("list-btn");
+            storedList.attr("data-name", cityName)
+            storedList.text(cityList);
+            $("#city-list").append(storedList);
+
             cityList.push(cityName);
             console.log(cityList);
-            cityListBtn();
+            localStorage.setItem("storedCity", JSON.stringify(cityList));
             let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=5c763a3a8c90ccff6e1863570ef2db64";
             $("#main-card").append(displayDiv);
             displayDiv.append(displayEl);
@@ -77,17 +84,6 @@ function weatherDashboard() {
             displayEl.append(displayHum);
             displayEl.append(displayWind);
             displayDiv.append(spanDiv.wrap(displayUv));
-
-            for (let j = 0; j < cityList.length; j++) {
-                const element = cityList[j];
-                console.log(cityList);
-                let storedList = $("<button>");
-                storedList.addClass("list-btn");
-                storedList.attr("data-name", cityName[i])
-                storedList.text(cityList[i]);
-                $("#city-list").append(storedList);
-                }
-
 
             $.ajax({
                 url: queryURL,
@@ -142,10 +138,31 @@ function weatherDashboard() {
                             fiveDayDiv.append(fiveDayEl);
                             $("#five-day").append(fiveDayDiv);
                         }
+
                     });
             });
         });
+
     })
+
+        $(".list-btn").on("click", function(event) {
+            event.preventDefault();
+            let priorInput = $(".list-btn").val().trim();
+            let textContent = $(this).siblings("input").val();
+            let storeArr = [];
+            console.log(storeArr);
+            storeArr.push(textContent);
+            localStorage.setItem("storedCity", JSON.stringify(storeArr));
+            weatherDashboard(priorInput);
+        })
+
+        function cityLoad() {
+            let lastSearch = JSON.parse(localStorage.getItem("storedCity"));
+            let storedList = $("<button>").addClass("list-btn").text(lastSearch);
+            let storedSearch = $("<div>");
+            storedSearch.append(storedList);
+            $("#city-list").prepend(storedSearch);
+        }
         
         function searchCard(response) {
 
@@ -168,26 +185,7 @@ function weatherDashboard() {
             }
         }
         
-        function cityListBtn() {
-            let cityList = [];
-
-            for (let j = 0; j < cityList.length; j++) {
-
-                const element = cityList[j];
-                console.log(cityList);
-                let storedList = $("<button>");
-                storedList.addClass("list-btn");
-                storedList.attr("data-name", cityName[i])
-                storedList.text(cityList[i]);
-                $("#city-list").append(storedList);
-            }
-        }
-
     })
-    $(document).on("click", ".list-btn", weatherDashboard);
-
-    
-
 }
 weatherDashboard();
 
