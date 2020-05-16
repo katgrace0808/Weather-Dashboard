@@ -22,3 +22,5 @@ code to work with, and it was satisfying to see what I created present on the ht
 
 I am still having issues with local storage, though it does call it back.  I also was unable to get my event listener to work for the stored
 city.  
+
+![Screenshot of site](/assets/img.PNG)

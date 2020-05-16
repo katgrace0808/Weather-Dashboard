@@ -144,7 +144,7 @@
             localStorage.setItem("cityName", JSON.stringify(cityList));
             for (let j = 0; j < cityList.length; j++) {
                 // let cityBtn = $("<button>").addClass("btn");
-                let citySearched = $("<button>").addClass("btn list-group-item").attr("style", "width: 100px;");
+                let citySearched = $("<button>").addClass("btn list-group-item").attr("style", "width: 150px;");
                 citySearched.text(cityEntered);
                 $("#city-list").prepend(citySearched);
             }
@@ -162,7 +162,7 @@
 
         function cityLoad() {
             let lastCity = JSON.parse(localStorage.getItem("cityName"));
-            let storedList = $("<button>").addClass("btn list-btn list-group-item").attr("style", "width: 100px;").text(lastCity);
+            let storedList = $("<button>").addClass("btn list-btn list-group-item").attr("style", "width: 150px;").text(lastCity);
             $("#city-list").append(storedList);
             weatherDashboard(lastCity);
 
