@@ -28,7 +28,7 @@
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Get Traveling!</button>
                 </div>
             </section>
-            <div class="row">
+            <div class="row" id="city-button">
                 <ul id="city-list"></ul>
                 <div id="main-card"></div>
             </div>
@@ -47,7 +47,6 @@
         let displayHum = $("<p class='card-text'>").attr("id", "current-humidity");
         let displayWind = $("<p class='card-text'>").attr("id", "current-wind-speed");
         let displayUv = $("<p class='card-text badge badge-success' id='current-UV-index' style='font-size: 16px;'>");
-        // let spanDiv = $("<span class='badge badge-success' id='current-UV-index' style='font-size: 16px;''>");
 
         function weatherDashboard(cityName) {
             let currentDate = moment().format('l');
@@ -76,7 +75,6 @@
                     displayEl.append(displayTemp);
                     displayEl.append(displayHum);
                     displayEl.append(displayWind);
-                    // displayDiv.append(spanDiv.wrap(displayUv));
                     displayDiv.append(displayUv);
                     $("#current-UV-index").text("UV Index: " + responseUV.value);
                     if (responseUV.value >= 0 && responseUV.value < 3) {
@@ -92,7 +90,6 @@
                         url: fiveDayURL,
                         method: "GET"
                     }).then(function (responseFiveDay) {
-                        // console.log(responseFiveDay);
                         let data = responseFiveDay.daily;
                         for (let i = 1; i < 6; i++) {
                             let fiveDayDiv = $("<div class='card bg-info' style='width: 10rem; margin: 10px;'>");
@@ -114,10 +111,8 @@
                             fiveDayDiv.append(fiveDayEl);
                             $("#five-day").append(fiveDayDiv);
                         }
-
                     });
                 });
-
             })
 
             function iconF(response) {
@@ -137,14 +132,14 @@
         $("#button-addon2").on("click", function (event) {
             event.preventDefault();
             $("#five-day").empty();
+            // $("#city-button").show();
 
             let cityEntered = $("#search-input").val().trim();
             let cityList = [];
             cityList.push(cityEntered);
             localStorage.setItem("cityName", JSON.stringify(cityList));
             for (let j = 0; j < cityList.length; j++) {
-                // let cityBtn = $("<button>").addClass("btn");
-                let citySearched = $("<button>").addClass("btn list-group-item").attr("style", "width: 150px;");
+                let citySearched = $("<button>").addClass("btn list-btn list-group-item").attr("style", "width: 150px;");
                 citySearched.text(cityEntered);
                 $("#city-list").prepend(citySearched);
             }
@@ -153,19 +148,27 @@
 
         $("#city-list").on("click", ".list-btn", function (event) {
             event.preventDefault();
+            $(".btn").show();
+
             let cityClick = this;
             $("#five-day").empty();
-            console.log(cityClick.textContent);
-
             weatherDashboard(cityClick.textContent);
+            console.log(cityClick.textContent);
         });
 
         function cityLoad() {
             let lastCity = JSON.parse(localStorage.getItem("cityName"));
             let storedList = $("<button>").addClass("btn list-btn list-group-item").attr("style", "width: 150px;").text(lastCity);
+            console.log(lastCity);
+            if (lastCity === null){
+                $(".list-btn").hide();
+                console.log($("#city-button"))
+            } else {
+                $(".list-btn").show();
+
             $("#city-list").append(storedList);
             weatherDashboard(lastCity);
-
+            }
         }
 
 
