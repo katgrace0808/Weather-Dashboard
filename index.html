@@ -104,7 +104,7 @@
                             let fiveDayDateEl = $("<h5 class='card-title'>");
                             let fiveDayTempEl = $("<p class='card-text'>").text("Temp: " + fiveDayTemp + "° F");
                             let fiveDayHumEl = $("<p class='card-text'>").text("Humidity: " + fiveDayHum + "%");
-                            let fiveDayIcon = "http://openweathermap.org/img/wn/" + responseFiveDay.daily[i].weather[0].icon + "@2x.png"
+                            let fiveDayIcon = "https://openweathermap.org/img/wn/" + responseFiveDay.daily[i].weather[0].icon + "@2x.png"
                             let fiveDayImg = $("<img>");
                             fiveDayImg.attr("src", fiveDayIcon);
                             fiveDayEl.append(fiveDayDateEl).text("Date: " + moment.unix(fiveDayDate).format("MM/DD/YYYY"));
@@ -127,7 +127,7 @@
                 for (let i = 0; i < iconArr.length; i++) {
                     let element = iconArr[i];
                     if (icon === element) {
-                        condCode.attr("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+                        condCode.attr("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
                     }
                 }
             }
