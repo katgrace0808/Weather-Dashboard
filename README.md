@@ -4,7 +4,7 @@ Weather dashboard for users to find weather conditions for where they intend to 
 
 ## Description
 
-This is a weather dashboard that supplies the weather for a location entere by the end user.  When you enter the application,
+This is a weather dashboard that supplies the weather for a location entered by the end user.  When you enter the application,
 you are presented with a search bar.  A user will enter a city name and click the search button.  Once clicked, the searched 
 city will populate on the screen with the current date, along with the current temperature, humidity, wind speed, and UV Index.  
 The UV Index will present as a color to indicate if it is in an acceptable range (green), a warning range (yellow) or danger range (red).
